@@ -1,0 +1,7 @@
+#test
+MinimumPlayers: 1
+MaximumPlayers: 1
+WaitingTime: 1
+SurvivalTime: 1
+LobbyServerName: "lobby"
+WorldName: "world"

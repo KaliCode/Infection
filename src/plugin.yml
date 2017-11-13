@@ -1,0 +1,11 @@
+name: Infection
+main: me.KaliCode.infection.Main
+version: 1.0
+authors: [KaliCode]
+description: An infection type mini-game for bukkit/spigot servers
+commands:
+  infection:
+    description: Base command for the plugin
+permissions:
+  infection.admin:
+    description: Permission to use /infection
