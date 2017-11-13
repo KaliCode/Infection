@@ -1,6 +1,6 @@
 name: Infection
 main: me.KaliCode.infection.Main
-version: 1.0
+version: 0.9
 authors: [KaliCode]
 description: An infection type mini-game for bukkit/spigot servers
 commands:
