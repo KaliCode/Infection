@@ -1,2 +1,2 @@
 # Infection
-An infection type mini-game for bukkit servers.
+Please read the wiki before posting questions about this plugin.
