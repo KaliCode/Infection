@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Main extends JavaPlugin {
 
-    public void onEnable() {
+    public void onEnable() { //just setting up the plugin here
         updateNumber = 1.0D;
         ofThree = 1.0D;
 
@@ -55,37 +55,37 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public void onDisable() {
+    public void onDisable() { //nothing important here
         getLogger().info("Infection disabled!");
     }
 
-    public static ArrayList<Player> normal = new ArrayList<>();
+    public static ArrayList<Player> normal = new ArrayList<>(); //this is how I manage the survivor team
 
-    public static ArrayList<Player> infected = new ArrayList<>();
+    public static ArrayList<Player> infected = new ArrayList<>(); //this is how I manage the infected team
 
-    public static ArrayList<Location> iSpawns = new ArrayList<>();
+    public static ArrayList<Location> iSpawns = new ArrayList<>(); //this is used to spawn you to a random spawn point
 
-    public static YamlConfiguration cfg;
+    public static YamlConfiguration cfg; //instance of the config.yml
 
-    private static File cFile;
+    private static File cFile; //instance of the file for the config.yml
 
-    public static Main plugin;
+    public static Main plugin; //instance of the plugin
 
-    public static BossBar barWaitTime;
+    public static BossBar barWaitTime; //instance of the bossbar
 
-    public static boolean gameActive;
+    public static boolean gameActive; //this is used to see if a game is active or not
 
-    public static boolean afterPat0;
+    public static boolean afterPat0; //this is used to see if a game has already chosen patient zero
 
-    public static double updateNumber;
+    public static double updateNumber; //this updates the time on the bossbar
 
-    public static double ofThree;
+    public static double ofThree; //this is used to regulate the bossbar timer
 
-    public static double progSet;
+    public static double progSet; //this sets the progress on the bossbar
 
-    public static int id1;
+    public static int id1; //this is an id for one of the schedulers
 
-    private static World configWorld() {
+    private static World configWorld() { //this return the world set in the config.yml
 
         if(!cfg.contains("WorldName")) {
 
@@ -102,11 +102,11 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public static Location ra() {
+    public static Location ra() { //this returns a random spawn from the ispawns list
         return (Location) iSpawns.get(new Random().nextInt(iSpawns.size()));
     }
 
-    public static String getSpawnSInfo(String type, String number) {
+    public static String getSpawnSInfo(String type, String number) { //this returns spawn information as a string
 
         if (type.equalsIgnoreCase("world"))
             return cfg.getString("Spawn" + number + ".world");
@@ -123,7 +123,7 @@ public class Main extends JavaPlugin {
         return null;
     }
 
-    public static Double getSpawnDInfo(String type, String number) {
+    public static Double getSpawnDInfo(String type, String number) { //this returns spawn information as a double
         if (type.equalsIgnoreCase("x"))
             return Double.valueOf(cfg.getDouble("Spawn" + number + ".x"));
 
@@ -136,23 +136,23 @@ public class Main extends JavaPlugin {
         return null;
     }
 
-    public static int minimumPlayers() {
+    public static int minimumPlayers() { //this returns the minimum amount of players as set in the config.yml
         return cfg.getInt("MinimumPlayers");
     }
 
-    public static int maximumPlayers() {
+    public static int maximumPlayers() { //this returns the maximum amount of players as set in the config.yml
         return cfg.getInt("MaximumPlayers");
     }
 
-    public static int waitingTime() {
+    public static int waitingTime() { //this returns the waiting time as set in the config.yml
         return cfg.getInt("WaitingTime");
     }
 
-    public static int survivalTime() {
+    public static int survivalTime() { //this returns the survival time as set in the config.yml
         return cfg.getInt("SurvivalTime");
     }
 
-    public static boolean isInt(String s) {
+    public static boolean isInt(String s) { //this checks if a string is an integer or not
 
         try {
             Integer.parseInt(s);
@@ -165,7 +165,7 @@ public class Main extends JavaPlugin {
         return true;
     }
 
-    public static int getInt(String s) {
+    public static int getInt(String s) { // this gets an integer from a string
         return Integer.parseInt(s);
     }
 
@@ -178,7 +178,7 @@ public class Main extends JavaPlugin {
         cfg.options().header("Time is read in ticks, 1 second = 20 ticks.");
     }
 
-    private static void getRaSpawn() {
+    private static void getRaSpawn() { //this adds spawns to ispawns list
 
         iSpawns.clear();
 
@@ -197,7 +197,7 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public static void configSave() {
+    public static void configSave() { //this saves the config.yml
 
         try {
             cfg.save(cFile);
@@ -207,7 +207,7 @@ public class Main extends JavaPlugin {
         }
     }
 
-    private void configCopyDef() {
+    private void configCopyDef() { //this copies the default values of the config.yml
 
         try {
 
@@ -222,7 +222,7 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public static void slowChooseInfected() {
+    public static void slowChooseInfected() { //this puts the game into the survival phase in time defined by the config.yml
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -285,7 +285,7 @@ public class Main extends JavaPlugin {
         }, waitingTime());
     }
 
-    public static void fastChooseInfected() {
+    public static void fastChooseInfected() { //this is used when all infected players leave the game and the game needs to choose a new one
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -316,7 +316,7 @@ public class Main extends JavaPlugin {
         }, 100L);
     }
 
-    public static void gameTimer() {
+    public static void gameTimer() { //this times the game after the survival phase has begone
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -355,9 +355,9 @@ public class Main extends JavaPlugin {
         }, survivalTime());
     }
 
-    private static int timeleft;
+    private static int timeleft; //instance of the amount of integer time left in the game
 
-    private static void countTimeLeft() {
+    private static void countTimeLeft() { //this sets the time left every second
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
@@ -376,7 +376,7 @@ public class Main extends JavaPlugin {
         }, 0, 20);
     }
 
-    public static void kickPlayers(Boolean withreload) {
+    public static void kickPlayers(Boolean withreload) { //this kicks players out of the game to the lobby server
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -409,7 +409,7 @@ public class Main extends JavaPlugin {
         }, 100L);
     }
 
-    public static void updateBossBar(BossBar bar) {
+    public static void updateBossBar(BossBar bar) { //this maintains and updates the bossbar
 
         id1 = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
@@ -437,7 +437,7 @@ public class Main extends JavaPlugin {
         }, 20L, 20L);
     }
 
-    public static void updateScoreboard(Player p, Boolean afterChoose) {
+    public static void updateScoreboard(Player p, Boolean afterChoose) { //this maintains and updates the scoreboard
 
         ScoreboardManager manager = Bukkit.getServer().getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
@@ -486,7 +486,7 @@ public class Main extends JavaPlugin {
         p.setScoreboard(board);
     }
 
-    private static void updateParticles() {
+    private static void updateParticles() { //this maintains particles for all infected players
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
@@ -500,7 +500,7 @@ public class Main extends JavaPlugin {
         },0, 5);
     }
 
-    private static Location locPlus(Player player) {
+    private static Location locPlus(Player player) { //this is used to put the particles at a specific location
 
         Location l = new Location(player.getWorld(), player.getLocation().getX(),
                 player.getLocation().getY() + 1, player.getLocation().getZ());
@@ -508,7 +508,7 @@ public class Main extends JavaPlugin {
         return l;
     }
 
-    private static String convertToMinutes(int integer) {
+    private static String convertToMinutes(int integer) { //this converts the timeleft to numbers decreasing as minutes
 
         int secondsLeftOver = integer % 60;
         double dminutes = integer / 60;
@@ -522,7 +522,7 @@ public class Main extends JavaPlugin {
         return Integer.toString(minutes) + ":" + secondsLeftOver;
     }
 
-    public static void setUpWorld(World world) {
+    public static void setUpWorld(World world) { //this sets up the world to ensure correct game-play
 
         world = Bukkit.getServer().getWorld(world.getName());
         world.setDifficulty(Difficulty.PEACEFUL);
