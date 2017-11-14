@@ -7,12 +7,12 @@ import java.lang.reflect.Constructor;
 
 public class Title {
 
-    private Constructor<?> titleConstructor;
-    private Object enumTitle;
-    private Object chat;
-    public Object packet;
+    private Constructor<?> titleConstructor; //instance of the  title constructor
+    private Object enumTitle; //instance of the enum object class
+    private Object chat; //instance of the chat component
+    public Object packet; //instance of the packet
 
-        public void sendPacket(Player player, Object packet) {
+        public void sendPacket(Player player, Object packet) { //this sends the title packet to a player
 
             try {
 
@@ -25,7 +25,7 @@ public class Title {
             }
     }
 
-    private Class<?> getNMSClass(String name) {
+    private Class<?> getNMSClass(String name) { //used to get an NMS class
             String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
             try {
@@ -37,7 +37,7 @@ public class Title {
             }
     }
 
-    public void setThingsUp(String titleMessage) {
+    public void setThingsUp(String titleMessage) { //used to set up the title packet
         try {
             enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
                     .getDeclaredField("TITLE").get(null);
