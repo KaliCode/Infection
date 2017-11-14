@@ -13,15 +13,15 @@ public class Command implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
-        if (label.equalsIgnoreCase("infection")) {
+        if (label.equalsIgnoreCase("infection")) { //base command for the plugin
 
-            if (!sender.hasPermission("infection.admin")) {
+            if (!sender.hasPermission("infection.admin")) { //permission to use /infection
 
                 sender.sendMessage(ChatColor.RED + "You don't have permission for this command");
                 return true;
             }
 
-            if (args.length < 1) {
+            if (args.length < 1) { //if no args it returns command info
 
                 sender.sendMessage(ChatColor.DARK_GREEN + "Commands:");
 
@@ -42,8 +42,11 @@ public class Command implements CommandExecutor {
 
                 sender.sendMessage(ChatColor.GREEN + "/infection spawninfo: " +
                         ChatColor.GOLD + "Shows the specified spawn's location.");
+
+                sender.sendMessage(ChatColor.GREEN + "/infection checkteam: " +
+                ChatColor.GOLD + "Shows the team you are currently on.");
             } else {
-                if (args[0].equalsIgnoreCase("forcestart")) {
+                if (args[0].equalsIgnoreCase("forcestart")) { //this forcefully starts the game
 
                     if (gameActive) {
                         sender.sendMessage(ChatColor.RED + "A game is already started!");
@@ -65,7 +68,7 @@ public class Command implements CommandExecutor {
                     return true;
                 }
 
-                if (args[0].equalsIgnoreCase("forcestop")) {
+                if (args[0].equalsIgnoreCase("forcestop")) { //this forcefully stops the game
 
                     kickPlayers(true);
 
@@ -73,7 +76,7 @@ public class Command implements CommandExecutor {
                     Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "The game has been forcefully stopped.");
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("setjoin")) {
+                if (args[0].equalsIgnoreCase("setjoin")) { //this sets the spawn point for when players join the game
 
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(ChatColor.RED + "You must be a player to run this command!");
@@ -92,7 +95,7 @@ public class Command implements CommandExecutor {
                     p.sendMessage(ChatColor.GREEN + "Join point set.");
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("setspawn")) {
+                if (args[0].equalsIgnoreCase("setspawn")) { //this sets the spawn point for when players die
 
                     if (!(sender instanceof Player)) {
 
@@ -124,7 +127,7 @@ public class Command implements CommandExecutor {
                     p.sendMessage(ChatColor.RED + "Spawn number must be 1-10!");
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("removespawn")) {
+                if (args[0].equalsIgnoreCase("removespawn")) { //this removes a specified spawn point
 
                     if ((args.length != 2) || (!isInt(args[1]))) {
 
@@ -143,7 +146,7 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "The specified spawn does not exist.");
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("spawninfo")) {
+                if (args[0].equalsIgnoreCase("spawninfo")) { //this shows the location of the specified spawn
 
                     if ((args.length != 2) || (!isInt(args[1]))) {
 
@@ -180,7 +183,7 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "The chosen spawn does not exist!");
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("checkteam")) {
+                if (args[0].equalsIgnoreCase("checkteam")) { //this checks your current team, be it survivor or infected
 
                     if (sender instanceof Player) {
 
