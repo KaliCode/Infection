@@ -20,7 +20,7 @@ import static me.KaliCode.infection.Main.*;
 public class Event implements Listener {
 
     @EventHandler
-    public void onPreJoin(AsyncPlayerPreLoginEvent e) {
+    public void onPreJoin(AsyncPlayerPreLoginEvent e) { //this denies players if the game has already started
 
         if (Bukkit.getOnlinePlayers().size() == maximumPlayers()) {
 
@@ -30,7 +30,7 @@ public class Event implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) { //this sets up players and starts the game when minimum players has been met
 
         Player p = e.getPlayer();
         normal.add(p);
@@ -81,7 +81,7 @@ public class Event implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
+    public void onQuit(PlayerQuitEvent e) { //this corrects teams and potion effects when a player leaves
 
         Player p = e.getPlayer();
         for (Player pl : Bukkit.getOnlinePlayers()) {
@@ -104,7 +104,7 @@ public class Event implements Listener {
     }
 
     @EventHandler
-    public void onHit(EntityDamageByEntityEvent e) {
+    public void onHit(EntityDamageByEntityEvent e) { //this manages team vs team hits and team vs enemy hits
 
         if (!gameActive) {
             e.setCancelled(true);
@@ -197,36 +197,36 @@ public class Event implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageEvent e) {
+    public void onDamage(EntityDamageEvent e) { //this cancels all damage except for entity vs entity damage
 
         if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK))
             e.setCancelled(true);
     }
 
     @EventHandler
-    public void onTileDrop(PlayerDropItemEvent e) {
+    public void onTileDrop(PlayerDropItemEvent e) { //this disallows tile drops
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void onTilePickup(PlayerPickupItemEvent e) {
+    public void onTilePickup(PlayerPickupItemEvent e) { //this disallows tile pickups
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void onEntitySpawn(EntitySpawnEvent e) {
+    public void onEntitySpawn(EntitySpawnEvent e) { //this disallows mob spawns
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void onArrowHit(ProjectileHitEvent e) {
+    public void onArrowHit(ProjectileHitEvent e) { //this removes an arrow after it has hit its target
 
         if(e.getEntity().getType() == EntityType.ARROW)
             e.getEntity().remove();
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(AsyncPlayerChatEvent e) { //this manages and formats the chat
 
         Player p = e.getPlayer();
 
